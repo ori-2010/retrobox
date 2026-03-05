@@ -19,6 +19,7 @@ from .models import ControllerConfig, ZoneType
 # CSS and JS live in retrobox/statics.py — imported as the canonical source.
 # Any new controller generator should import from there directly.
 from .statics import STATIC_CSS as _STATIC_CSS, STATIC_JS as _STATIC_JS
+from .ws_client import WEBSOCKET_JS as _WEBSOCKET_JS
 
 # ---------------------------------------------------------------------------
 # Inline copies below are kept only as readable reference and are NOT used
@@ -741,4 +742,7 @@ class ControllerGenerator:
             f"    var ZONES = {zones_json};\n"
             f"    var KEY_MAP = {key_map_json};\n"
         )
-        return dynamic + _STATIC_JS
+        js = dynamic + _STATIC_JS
+        if config.websocket_enabled:
+            js += _WEBSOCKET_JS
+        return js

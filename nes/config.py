@@ -22,6 +22,7 @@ def get_config() -> ControllerConfig:
         tab_logo_enabled=False,
         tab_logo_scale=0.79,
         tab_logo_offset_y=0.0,
+        websocket_enabled=True,
         viewport_width=844,
         viewport_height=390,
         background_color="#000000",
