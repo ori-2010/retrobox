@@ -7,7 +7,16 @@ name = "retrobox-controllers"
 version = "0.1.0"
 description = "Generator toolkit for RetroBox virtual controller UIs"
 requires-python = ">=3.10"
-dependencies = []
+dependencies = [
+    "fastapi>=0.100.0",
+    "uvicorn>=0.23.0",
+]
+
+[project.optional-dependencies]
+gamepad = [
+    "evdev>=1.6.0",
+]
 
 [project.scripts]
 retrobox-generate = "generate:main"
+retrobox-server = "server.server:main"

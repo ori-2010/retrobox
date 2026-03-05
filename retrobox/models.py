@@ -90,6 +90,9 @@ class ControllerConfig:
     # whether to render the logo inside the menu-trigger tab; some SVGs (NES)
     # already include a logo graphic so a second overlay would be redundant.
     tab_logo_enabled: bool = True
+    # when True the generator appends WebSocket client JS that sends button
+    # events to a RetroBox server and handles player assignment messages.
+    websocket_enabled: bool = False
     # fraction of the zone height the tab logo should occupy (0–1)
     # when `tab_logo_enabled` is true.  The default is 0.79 (79%).
     tab_logo_scale: float = 0.79
