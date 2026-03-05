@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "retrobox-controllers"
+version = "0.1.0"
+description = "Generator toolkit for RetroBox virtual controller UIs"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+retrobox-generate = "generate:main"

@@ -1,0 +1,29 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "preview-all",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8080"],
+      "port": 8080
+    },
+    {
+      "name": "generate-nes",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["generate.py", "nes"],
+      "port": 0
+    },
+    {
+      "name": "generate-psp",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["generate.py", "psp"],
+      "port": 0
+    },
+    {
+      "name": "generate-gba",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["generate.py", "gba"],
+      "port": 0
+    }
+  ]
+}
