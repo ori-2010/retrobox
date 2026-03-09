@@ -39,10 +39,10 @@ def get_config() -> ControllerConfig:
             TouchZone("btn-l",   39,   3, 254, 35, ZoneType.BUTTON, ZoneShape.PILL),
             TouchZone("btn-r",  552,   3, 256, 37, ZoneType.BUTTON, ZoneShape.PILL),
 
-            # ── Menu trigger (RetroBox logo pill) ───────────────────
-            TouchZone("menu-trigger", 360, 2, 127, 38, ZoneType.MENU_TRIGGER, ZoneShape.RECT),
+            # ── Menu trigger (RetroBox logo — wider touch zone) ─────
+            TouchZone("menu-trigger", 310, 0, 224, 50, ZoneType.MENU_TRIGGER, ZoneShape.RECT),
 
-            # ── D-pad 3×3 grid ──────────────────────────────────────
+            # ── D-pad 3×3 grid (with diagonals) ────────────────────
             TouchZone("dpad-up-left",    DX,        DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, ["up",   "left"]),
             TouchZone("dpad-up",         DX + C,    DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, ["up"]),
             TouchZone("dpad-up-right",   DX + 2*C,  DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, ["up",   "right"]),
@@ -53,17 +53,17 @@ def get_config() -> ControllerConfig:
             TouchZone("dpad-down-right", DX + 2*C,  DY + 2*C,  C, C, ZoneType.DPAD, ZoneShape.RECT, ["down", "right"]),
 
             # ── Analog stick (center 325, 329) ──────────────────────
-            TouchZone("analog-stick", 270, 274, 110, 110, ZoneType.JOYSTICK, ZoneShape.ROUND),
+            TouchZone("analog-stick", 260, 264, 130, 130, ZoneType.JOYSTICK, ZoneShape.ROUND),
 
-            # ── Action face buttons (64×64 hit areas) ───────────────
-            TouchZone("btn-triangle", 654,  81, 64, 64, ZoneType.BUTTON, ZoneShape.ROUND),
-            TouchZone("btn-square",   568, 161, 64, 64, ZoneType.BUTTON, ZoneShape.ROUND),
-            TouchZone("btn-circle",   737, 161, 64, 64, ZoneType.BUTTON, ZoneShape.ROUND),
-            TouchZone("btn-cross",    654, 242, 64, 64, ZoneType.BUTTON, ZoneShape.ROUND),
+            # ── Action face buttons (bigger 80×80 hit areas) ────────
+            TouchZone("btn-triangle", 644,  71, 80, 80, ZoneType.BUTTON, ZoneShape.ROUND),
+            TouchZone("btn-square",   558, 151, 80, 80, ZoneType.BUTTON, ZoneShape.ROUND),
+            TouchZone("btn-circle",   727, 151, 80, 80, ZoneType.BUTTON, ZoneShape.ROUND),
+            TouchZone("btn-cross",    644, 232, 80, 80, ZoneType.BUTTON, ZoneShape.ROUND),
 
-            # ── Select / Start ──────────────────────────────────────
-            TouchZone("btn-select", 536, 347, 100, 29, ZoneType.BUTTON, ZoneShape.PILL),
-            TouchZone("btn-start",  645, 347, 100, 29, ZoneType.BUTTON, ZoneShape.PILL),
+            # ── Select / Start (matching SVG rects precisely) ────────
+            TouchZone("btn-select", 526, 340, 120, 40, ZoneType.BUTTON, ZoneShape.PILL),
+            TouchZone("btn-start",  635, 340, 120, 40, ZoneType.BUTTON, ZoneShape.PILL),
         ],
 
         menu_items=[

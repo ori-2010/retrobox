@@ -55,10 +55,11 @@ STATIC_CSS = """
       pointer-events: auto;
       transition: transform 0.07s ease, box-shadow 0.07s ease, background 0.07s ease;
       will-change: transform;
+      transform: rotate(var(--rb-rotate, 0deg));
     }
     .rb-zone.active {
       background: rgba(255,255,255,0.15);
-      transform: scale(0.82);
+      transform: rotate(var(--rb-rotate, 0deg)) scale(0.82);
     }
     .rb-zone[data-shape="round"]  { border-radius: 50%; }
     .rb-zone[data-shape="round"].active {
@@ -74,7 +75,7 @@ STATIC_CSS = """
       transition: transform 0.05s ease, background 0.05s ease, box-shadow 0.05s ease;
     }
     .rb-zone[data-type="dpad"].active {
-      transform: scale(0.76);
+      transform: rotate(var(--rb-rotate, 0deg)) scale(0.76);
       background: rgba(255,255,255,0.22) !important;
       box-shadow: inset 0 0 8px rgba(255,255,255,0.18);
     }
@@ -159,6 +160,7 @@ STATIC_CSS = """
     .rb-menu-card {
       position: absolute;
       top: 0;
+      left: 50%;
       background: #d8d8d8;
       border-radius: 0 0 16px 16px;
       padding: 14px;
@@ -169,11 +171,11 @@ STATIC_CSS = """
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transform: translateY(-110%);
+      transform: translate(-50%, -110%);
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .rb-menu-overlay.open .rb-menu-card {
-      transform: translateY(0);
+      transform: translate(-50%, 0);
     }
     .rb-menu-item {
       display: block; width: 100%;
@@ -231,6 +233,9 @@ STATIC_JS = r"""
         el.style.top    = (z.y / SVG_H * 100) + '%';
         el.style.width  = (z.w / SVG_W * 100) + '%';
         el.style.height = (z.h / SVG_H * 100) + '%';
+        if (z.rotation) {
+          el.style.setProperty('--rb-rotate', z.rotation + 'deg');
+        }
       }
     }
 
@@ -257,11 +262,7 @@ STATIC_JS = r"""
 
     /* ── menu ────────────────────────────────────────────── */
     function positionMenuCard() {
-      var trigger = document.getElementById('zone-menu-trigger');
-      if (!trigger || !menuCard) return;
-      var tr = trigger.getBoundingClientRect();
-      menuCard.style.left  = tr.left + 'px';
-      menuCard.style.width = tr.width + 'px';
+      /* menu card is centred via CSS (left:50% + translateX(-50%)) */
     }
 
     /* ── D-pad: axis-dominance + diagonal + neutral zone ─── */
@@ -291,6 +292,13 @@ STATIC_JS = r"""
       if (dist < dpadRadius * DPAD_DEAD) return [];
       var nx = dx / dist, ny = dy / dist;
       var ax = Math.abs(nx), ay = Math.abs(ny);
+      if (typeof DPAD_CARDINAL_ONLY !== 'undefined' && DPAD_CARDINAL_ONLY) {
+        /* Return both adjacent cardinals for diagonal touches */
+        var dirs = [];
+        if (ax > 0.38) dirs.push(nx > 0 ? 'right' : 'left');
+        if (ay > 0.38) dirs.push(ny > 0 ? 'down' : 'up');
+        return dirs.length ? dirs : [ay >= ax ? (ny > 0 ? 'down' : 'up') : (nx > 0 ? 'right' : 'left')];
+      }
       if (ax > DPAD_DIAG && ay > DPAD_DIAG)
         return [(nx > 0 ? 'right' : 'left'), (ny > 0 ? 'down' : 'up')];
       if (ax >= ay) return [nx > 0 ? 'right' : 'left'];
@@ -301,10 +309,17 @@ STATIC_JS = r"""
       var set = {};
       for (var i = 0; i < dirs.length; i++) set[dirs[i]] = true;
       var zones = touchLayer.querySelectorAll('.rb-zone[data-type="dpad"]');
+      var useSubset = (typeof DPAD_CARDINAL_ONLY !== 'undefined' && DPAD_CARDINAL_ONLY);
       for (var i = 0; i < zones.length; i++) {
         var z  = zones[i];
         var zd = (z.dataset.directions || '').split(',').filter(Boolean);
-        var match = (zd.length === dirs.length) && zd.every(function(d) { return set[d]; });
+        var match;
+        if (useSubset) {
+          /* Subset: activate zone if ALL of its directions are in the active set */
+          match = zd.length > 0 && zd.every(function(d) { return set[d]; });
+        } else {
+          match = (zd.length === dirs.length) && zd.every(function(d) { return set[d]; });
+        }
         if (match) z.classList.add('active');
         else       z.classList.remove('active');
       }

@@ -12,7 +12,8 @@ from retrobox import ControllerConfig, TouchZone, MenuItem, ZoneType, ZoneShape
 
 def get_config() -> ControllerConfig:
     # ── D-pad 3×3 grid ──────────────────────────────────────────────
-    # D-pad SVG placed at (95, 98), size 234×234
+    # D-pad SVG at (95, 98), size 234×234.  Corner zones provide touch
+    # coverage but have no directions (never activate visually).
     DX, DY = 95, 98
     C = 78              # cell size (234 / 3)
 
@@ -27,32 +28,33 @@ def get_config() -> ControllerConfig:
         viewport_height=390,
         background_color="#000000",
         brand_name="RetroBox",
+        dpad_cardinal_only=True,
 
         touch_zones=[
             # ── L / R shoulder buttons ──────────────────────────────
             TouchZone("btn-l",   0, 40, 358, 35, ZoneType.BUTTON, ZoneShape.PILL),
             TouchZone("btn-r", 484, 40, 360, 35, ZoneType.BUTTON, ZoneShape.PILL),
 
-            # ── Menu trigger (RetroBox logo tab) ────────────────────
-            TouchZone("menu-trigger", 360, 2, 127, 38, ZoneType.MENU_TRIGGER, ZoneShape.RECT),
+            # ── Menu trigger (RetroBox logo tab — wider touch zone) ─
+            TouchZone("menu-trigger", 310, 0, 224, 50, ZoneType.MENU_TRIGGER, ZoneShape.RECT),
 
-            # ── D-pad 3×3 grid ──────────────────────────────────────
-            TouchZone("dpad-up-left",    DX,        DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, ["up",   "left"]),
-            TouchZone("dpad-up",         DX + C,    DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, ["up"]),
-            TouchZone("dpad-up-right",   DX + 2*C,  DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, ["up",   "right"]),
-            TouchZone("dpad-left",       DX,        DY + C,    C, C, ZoneType.DPAD, ZoneShape.RECT, ["left"]),
-            TouchZone("dpad-right",      DX + 2*C,  DY + C,    C, C, ZoneType.DPAD, ZoneShape.RECT, ["right"]),
-            TouchZone("dpad-down-left",  DX,        DY + 2*C,  C, C, ZoneType.DPAD, ZoneShape.RECT, ["down", "left"]),
-            TouchZone("dpad-down",       DX + C,    DY + 2*C,  C, C, ZoneType.DPAD, ZoneShape.RECT, ["down"]),
-            TouchZone("dpad-down-right", DX + 2*C,  DY + 2*C,  C, C, ZoneType.DPAD, ZoneShape.RECT, ["down", "right"]),
+            # ── D-pad 3×3 grid (cardinal-only with corner coverage) ─
+            TouchZone("dpad-ul",    DX,        DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, []),
+            TouchZone("dpad-up",    DX + C,    DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, ["up"]),
+            TouchZone("dpad-ur",    DX + 2*C,  DY,        C, C, ZoneType.DPAD, ZoneShape.RECT, []),
+            TouchZone("dpad-left",  DX,        DY + C,    C, C, ZoneType.DPAD, ZoneShape.RECT, ["left"]),
+            TouchZone("dpad-right", DX + 2*C,  DY + C,    C, C, ZoneType.DPAD, ZoneShape.RECT, ["right"]),
+            TouchZone("dpad-dl",    DX,        DY + 2*C,  C, C, ZoneType.DPAD, ZoneShape.RECT, []),
+            TouchZone("dpad-down",  DX + C,    DY + 2*C,  C, C, ZoneType.DPAD, ZoneShape.RECT, ["down"]),
+            TouchZone("dpad-dr",    DX + 2*C,  DY + 2*C,  C, C, ZoneType.DPAD, ZoneShape.RECT, []),
 
-            # ── A / B buttons ───────────────────────────────────────
-            TouchZone("btn-b", 608, 215, 100, 100, ZoneType.BUTTON, ZoneShape.ROUND),
-            TouchZone("btn-a", 710, 125, 100, 100, ZoneType.BUTTON, ZoneShape.ROUND),
+            # ── A / B buttons (centered on SVG: A@(710,125,100×100) B@(608,215,100×100))
+            TouchZone("btn-a", 705, 120, 110, 110, ZoneType.BUTTON, ZoneShape.ROUND),
+            TouchZone("btn-b", 603, 210, 110, 110, ZoneType.BUTTON, ZoneShape.ROUND),
 
-            # ── Start / Select ──────────────────────────────────────
-            TouchZone("btn-start",  412, 283, 103, 57, ZoneType.BUTTON, ZoneShape.PILL),
-            TouchZone("btn-select", 421, 322, 103, 57, ZoneType.BUTTON, ZoneShape.PILL),
+            # ── Start / Select (centered on SVG containers, rotated 20°) ─
+            TouchZone("btn-start",  407, 278, 113, 40, ZoneType.BUTTON, ZoneShape.PILL, rotation=20.0),
+            TouchZone("btn-select", 416, 317, 113, 40, ZoneType.BUTTON, ZoneShape.PILL, rotation=20.0),
         ],
 
         menu_items=[

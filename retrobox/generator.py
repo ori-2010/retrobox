@@ -144,6 +144,7 @@ _REMOVED_CSS = """
     .rb-menu-card {
       position: absolute;
       top: 0;
+      left: 50%;
       background: #d8d8d8;
       border-radius: 0 0 16px 16px;
       padding: 14px;
@@ -154,11 +155,11 @@ _REMOVED_CSS = """
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transform: translateY(-110%);
+      transform: translate(-50%, -110%);
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .rb-menu-overlay.open .rb-menu-card {
-      transform: translateY(0);
+      transform: translate(-50%, 0);
     }
     .rb-menu-item {
       display: block; width: 100%;
@@ -242,12 +243,7 @@ _REMOVED_JS = r"""
 
     /* ── menu ────────────────────────────────────────────── */
     function positionMenuCard() {
-      // Align menu card horizontally with the menu-trigger zone (the logo tab)
-      var trigger = document.getElementById('zone-menu-trigger');
-      if (!trigger || !menuCard) return;
-      var tr = trigger.getBoundingClientRect();
-      menuCard.style.left  = tr.left + 'px';
-      menuCard.style.width = tr.width + 'px';
+      // Centred via CSS — no dynamic left/width needed
     }
 
     /* ── D-pad: axis-dominance + diagonal + neutral zone ────── */
@@ -740,5 +736,6 @@ class ControllerGenerator:
             f"    var SVG_H = {config.viewport_height};\n"
             f"    var ZONES = {zones_json};\n"
             f"    var KEY_MAP = {key_map_json};\n"
+            f"    var DPAD_CARDINAL_ONLY = {'true' if config.dpad_cardinal_only else 'false'};\n"
         )
         return dynamic + _STATIC_JS

@@ -40,10 +40,11 @@
       pointer-events: auto;
       transition: transform 0.07s ease, box-shadow 0.07s ease, background 0.07s ease;
       will-change: transform;
+      transform: rotate(var(--rb-rotate, 0deg));
     }
     .rb-zone.active {
       background: rgba(255,255,255,0.15);
-      transform: scale(0.82);
+      transform: rotate(var(--rb-rotate, 0deg)) scale(0.82);
     }
     .rb-zone[data-shape="round"]  { border-radius: 50%; }
     .rb-zone[data-shape="round"].active {
@@ -59,7 +60,7 @@
       transition: transform 0.05s ease, background 0.05s ease, box-shadow 0.05s ease;
     }
     .rb-zone[data-type="dpad"].active {
-      transform: scale(0.76);
+      transform: rotate(var(--rb-rotate, 0deg)) scale(0.76);
       background: rgba(255,255,255,0.22) !important;
       box-shadow: inset 0 0 8px rgba(255,255,255,0.18);
     }
@@ -144,6 +145,7 @@
     .rb-menu-card {
       position: absolute;
       top: 0;
+      left: 50%;
       background: #d8d8d8;
       border-radius: 0 0 16px 16px;
       padding: 14px;
@@ -154,11 +156,11 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      transform: translateY(-110%);
+      transform: translate(-50%, -110%);
       transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .rb-menu-overlay.open .rb-menu-card {
-      transform: translateY(0);
+      transform: translate(-50%, 0);
     }
     .rb-menu-item {
       display: block; width: 100%;
@@ -230,7 +232,8 @@
     "h": 35,
     "type": "button",
     "shape": "pill",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "btn-r",
@@ -240,17 +243,19 @@
     "h": 37,
     "type": "button",
     "shape": "pill",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "menu-trigger",
-    "x": 360,
-    "y": 2,
-    "w": 127,
-    "h": 38,
+    "x": 310,
+    "y": 0,
+    "w": 224,
+    "h": 50,
     "type": "menu_trigger",
     "shape": "rect",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "dpad-up-left",
@@ -263,7 +268,8 @@
     "directions": [
       "up",
       "left"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "dpad-up",
@@ -275,7 +281,8 @@
     "shape": "rect",
     "directions": [
       "up"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "dpad-up-right",
@@ -288,7 +295,8 @@
     "directions": [
       "up",
       "right"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "dpad-left",
@@ -300,7 +308,8 @@
     "shape": "rect",
     "directions": [
       "left"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "dpad-right",
@@ -312,7 +321,8 @@
     "shape": "rect",
     "directions": [
       "right"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "dpad-down-left",
@@ -325,7 +335,8 @@
     "directions": [
       "down",
       "left"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "dpad-down",
@@ -337,7 +348,8 @@
     "shape": "rect",
     "directions": [
       "down"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "dpad-down-right",
@@ -350,77 +362,85 @@
     "directions": [
       "down",
       "right"
-    ]
+    ],
+    "rotation": 0.0
   },
   {
     "id": "analog-stick",
-    "x": 270,
-    "y": 274,
-    "w": 110,
-    "h": 110,
+    "x": 260,
+    "y": 264,
+    "w": 130,
+    "h": 130,
     "type": "joystick",
     "shape": "round",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "btn-triangle",
-    "x": 654,
-    "y": 81,
-    "w": 64,
-    "h": 64,
+    "x": 644,
+    "y": 71,
+    "w": 80,
+    "h": 80,
     "type": "button",
     "shape": "round",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "btn-square",
-    "x": 568,
-    "y": 161,
-    "w": 64,
-    "h": 64,
+    "x": 558,
+    "y": 151,
+    "w": 80,
+    "h": 80,
     "type": "button",
     "shape": "round",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "btn-circle",
-    "x": 737,
-    "y": 161,
-    "w": 64,
-    "h": 64,
+    "x": 727,
+    "y": 151,
+    "w": 80,
+    "h": 80,
     "type": "button",
     "shape": "round",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "btn-cross",
-    "x": 654,
-    "y": 242,
-    "w": 64,
-    "h": 64,
+    "x": 644,
+    "y": 232,
+    "w": 80,
+    "h": 80,
     "type": "button",
     "shape": "round",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "btn-select",
-    "x": 536,
-    "y": 347,
-    "w": 100,
-    "h": 29,
+    "x": 526,
+    "y": 340,
+    "w": 120,
+    "h": 40,
     "type": "button",
     "shape": "pill",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   },
   {
     "id": "btn-start",
-    "x": 645,
-    "y": 347,
-    "w": 100,
-    "h": 29,
+    "x": 635,
+    "y": 340,
+    "w": 120,
+    "h": 40,
     "type": "button",
     "shape": "pill",
-    "directions": []
+    "directions": [],
+    "rotation": 0.0
   }
 ];
     var KEY_MAP = {
@@ -443,6 +463,7 @@
   " ": "btn-select",
   "Enter": "btn-start"
 };
+    var DPAD_CARDINAL_ONLY = false;
 
     /* ── state ───────────────────────────────────────────── */
     const activeTouches = new Map();   // touchId → zone el (buttons / joystick)
@@ -474,6 +495,9 @@
         el.style.top    = (z.y / SVG_H * 100) + '%';
         el.style.width  = (z.w / SVG_W * 100) + '%';
         el.style.height = (z.h / SVG_H * 100) + '%';
+        if (z.rotation) {
+          el.style.setProperty('--rb-rotate', z.rotation + 'deg');
+        }
       }
     }
 
@@ -500,11 +524,7 @@
 
     /* ── menu ────────────────────────────────────────────── */
     function positionMenuCard() {
-      var trigger = document.getElementById('zone-menu-trigger');
-      if (!trigger || !menuCard) return;
-      var tr = trigger.getBoundingClientRect();
-      menuCard.style.left  = tr.left + 'px';
-      menuCard.style.width = tr.width + 'px';
+      /* menu card is centred via CSS (left:50% + translateX(-50%)) */
     }
 
     /* ── D-pad: axis-dominance + diagonal + neutral zone ─── */
@@ -534,6 +554,13 @@
       if (dist < dpadRadius * DPAD_DEAD) return [];
       var nx = dx / dist, ny = dy / dist;
       var ax = Math.abs(nx), ay = Math.abs(ny);
+      if (typeof DPAD_CARDINAL_ONLY !== 'undefined' && DPAD_CARDINAL_ONLY) {
+        /* Return both adjacent cardinals for diagonal touches */
+        var dirs = [];
+        if (ax > 0.38) dirs.push(nx > 0 ? 'right' : 'left');
+        if (ay > 0.38) dirs.push(ny > 0 ? 'down' : 'up');
+        return dirs.length ? dirs : [ay >= ax ? (ny > 0 ? 'down' : 'up') : (nx > 0 ? 'right' : 'left')];
+      }
       if (ax > DPAD_DIAG && ay > DPAD_DIAG)
         return [(nx > 0 ? 'right' : 'left'), (ny > 0 ? 'down' : 'up')];
       if (ax >= ay) return [nx > 0 ? 'right' : 'left'];
@@ -544,10 +571,17 @@
       var set = {};
       for (var i = 0; i < dirs.length; i++) set[dirs[i]] = true;
       var zones = touchLayer.querySelectorAll('.rb-zone[data-type="dpad"]');
+      var useSubset = (typeof DPAD_CARDINAL_ONLY !== 'undefined' && DPAD_CARDINAL_ONLY);
       for (var i = 0; i < zones.length; i++) {
         var z  = zones[i];
         var zd = (z.dataset.directions || '').split(',').filter(Boolean);
-        var match = (zd.length === dirs.length) && zd.every(function(d) { return set[d]; });
+        var match;
+        if (useSubset) {
+          /* Subset: activate zone if ALL of its directions are in the active set */
+          match = zd.length > 0 && zd.every(function(d) { return set[d]; });
+        } else {
+          match = (zd.length === dirs.length) && zd.every(function(d) { return set[d]; });
+        }
         if (match) z.classList.add('active');
         else       z.classList.remove('active');
       }

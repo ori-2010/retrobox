@@ -35,6 +35,7 @@ class TouchZone:
     zone_type: ZoneType = ZoneType.BUTTON
     shape: ZoneShape = ZoneShape.RECT
     directions: List[str] = field(default_factory=list)
+    rotation: float = 0.0
 
     def to_dict(self) -> dict:
         return {
@@ -46,6 +47,7 @@ class TouchZone:
             "type": self.zone_type.value,
             "shape": self.shape.value,
             "directions": self.directions,
+            "rotation": self.rotation,
         }
 
 
@@ -95,3 +97,5 @@ class ControllerConfig:
     tab_logo_scale: float = 0.79
     # additional vertical offset (px) applied to the tab logo image; positive moves down
     tab_logo_offset_y: float = 0.0
+    # when True, the d-pad only registers cardinal directions (no diagonals)
+    dpad_cardinal_only: bool = False

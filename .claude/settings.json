@@ -1,5 +1,12 @@
 {
   "enabledPlugins": {
     "clangd-lsp@claude-plugins-official": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(rm \"/Users/johan/Desktop/vitual controllers/nes/index.html\")",
+      "Bash(rm \"/Users/johan/Desktop/vitual controllers/nes/config.py\")",
+      "Bash(rm -rf \"/Users/johan/Desktop/vitual controllers/nes/__pycache__\")"
+    ]
   }
 }
